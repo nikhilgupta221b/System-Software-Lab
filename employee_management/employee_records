@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# Function to display the menu
+display_menu(){
+	echo "Menu:"
+	echo "1. Create Employee Record"
+	echo "2. Delete Employee Record"
+	echo "3. Search Employee Record"
+	echo "4. Display Employee Details"
+	echo "5. Sort Records"
+	echo "6. List All Records"
+	echo "7. Exit"
+}
+
+# Function to add a new employee record
+add_record(){
+	read -p "Enter Name: " name
+	read -p "Enter Employee Number: " emp_no
+	read -p "Enter Telephone Number: " telephone
+	# Check if the employee number is already present in database
+	if grep -q "^.*  $emp_no  .*$" employee_database.txt; then
+		echo "Employee Number $emp_no is already present. Can't create duplicate records."
+	else
+		record="$name  $emp_no  $telephone"
+		echo "$record" >> employee_database.txt
+		echo "Employee record is created successfully!"
+	fi
+}
+
+# Function to delete a record
+delete_record(){
+	read -p "Enter Employee Number to delete: " emp_num
+	# Use temporary file to store the updated records
+	grep -v "^.*  $emp_num  .*$" employee_database.txt > temp.txt
+	mv temp.txt employee_database.txt
+	echo "Employee record is deleted!" 
+}
+
+# Function to search an Employee record
+search_record(){
+	read -p "Enter an Employee number to search: " emp_no
+	grep "^.*  $emp_no  .*$" employee_database.txt
+}
+
+# Function to display a specific employee's details
+display_record(){
+	search_record
+}
+
+#Function to sort the records
+sort_records(){
+	sort -t " " -k2n employee_database.txt > temp.txt
+	mv temp.txt employee_database.txt
+	echo "Records are now sorted!"
+}
+
+#Function to list all records
+list_records(){
+	cat employee_database.txt
+}
+
+
+# Main Loop
+while true; do
+	display_menu
+	read -p "Enter your choice: " choice
+
+	case $choice in
+		1)
+			add_record
+			;;
+		2)
+			delete_record
+			;;
+		3)
+			search_record
+			;;
+		4)
+			display_record
+			;;
+		5)
+			sort_records
+			;;
+		6)
+			list_records
+			;;
+		7)
+			echo "Exiting.."
+			exit 0
+			;;
+		*)	echo "Invalid choice. Please enter a valid option."
+			;;
+	esac
+done

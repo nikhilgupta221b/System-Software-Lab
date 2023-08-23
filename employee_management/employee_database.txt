@@ -1,0 +1,6 @@
+Pranjal  1  456
+Subhashit  2  654
+Aryan  3  654
+Nikhil  5  123
+Navneet  6  2031
+Hari  12  987
