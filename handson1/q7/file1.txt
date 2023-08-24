@@ -1,0 +1,1 @@
+This file is created to copy all of its data into another file. We will be using C program to do this. We have created 2 file descriptors and we will use system calls read and write to copy this data.
