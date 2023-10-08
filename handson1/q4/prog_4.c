@@ -1,3 +1,14 @@
+/*
+============================================================================
+Name : 4.c
+Author : Nikhil Gupta
+Description : Write a c program to open a file
+Date: 24th Aug, 2023.
+============================================================================
+*/
+
+
+
 #include<stdio.h>
 #include<fcntl.h>
 #include<unistd.h>
